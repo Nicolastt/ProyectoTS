@@ -1,13 +1,8 @@
-export class NegociacionesView {
-    constructor(selector) {
-        this.selectorDiv = document.querySelector(selector);
-    }
-    update(model) {
-        // innerHTML : me permite colocar elementos html
-        this.selectorDiv.innerHTML = this.crearTemplate(model);
-    }
+import { View } from "./view.js";
+export class NegociacionesView extends View {
+    // Siempre hay que especificar qué elemento se va a utilizar en cada clase hija de View
     // Se utiliza .join para eliminar la ',' del array de Negociaciones.
-    // new Intl.DateTimeFormat().format(e.fecha) permite darle un formato a la fecha
+    // Intl.DateTimeFormat().format(e.fecha) permite darle un formato a la fecha
     crearTemplate(model) {
         return `
             <table class="table">

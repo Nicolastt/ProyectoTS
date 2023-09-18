@@ -1,20 +1,13 @@
 import {Negociaciones} from "../models/negociaciones.js";
+import {View} from "./view.js";
 
-export class NegociacionesView {
-    private selectorDiv: HTMLAnchorElement;
-    constructor(selector: string) {
-        this.selectorDiv = document.querySelector(selector)
-    }
-
-    update(model: Negociaciones): void{
-        // innerHTML : me permite colocar elementos html
-        this.selectorDiv.innerHTML = this.crearTemplate(model);
-    }
+export class NegociacionesView extends View<Negociaciones> {
+    // Siempre hay que especificar qué elemento se va a utilizar en cada clase hija de View
 
     // Se utiliza .join para eliminar la ',' del array de Negociaciones.
-    // new Intl.DateTimeFormat().format(e.fecha) permite darle un formato a la fecha
+    // Intl.DateTimeFormat().format(e.fecha) permite darle un formato a la fecha
     crearTemplate(model: Negociaciones): string {
-        return`
+        return `
             <table class="table">
                 <thead>
                     <tr>
@@ -24,14 +17,14 @@ export class NegociacionesView {
                     </tr>
                 </thead>
                 <tbody>
-                ${model.obtenerLista().map(e =>{
-                    return `
+                ${model.obtenerLista().map(e => {
+            return `
                         <tr>
                         <td>${new Intl.DateTimeFormat().format(e.fecha)}</td>
                         <td>${e.cantidad}</td>
                         <td>${e.valor}</td>
                         </tr>`
-                }).join('')} 
+        }).join('')} 
                 </tbody>
             </table>
         `;
