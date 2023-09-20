@@ -14,9 +14,10 @@ export class NegociacionController {
     private mensajeView: MensajeView = new MensajeView('#mensaje-view')
 
     constructor() {
-        this.inputFecha = document.querySelector('#fecha');
-        this.inputCantidad = document.querySelector('#cantidad');
-        this.inputValor = document.querySelector('#valor')
+        // as ... : Es como se castea en Ts, se especifica que vamos a recibir un HTMLInputElement.
+        this.inputFecha = document.querySelector('#fecha') as HTMLInputElement;
+        this.inputCantidad = document.querySelector('#cantidad') as HTMLInputElement;
+        this.inputValor = document.querySelector('#valor') as HTMLInputElement;
         this.negociacionesView.update(this.negociaciones); // Para que muestre la tabla desde el inicio.
     }
 
