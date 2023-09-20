@@ -24,6 +24,7 @@ export class NegociacionesView extends View {
         }).join('')} 
                 </tbody>
             </table>
+            <script>alert('hola')</script>
         `;
     }
     formatearFecha(fecha) {

@@ -7,7 +7,7 @@ export class NegociacionController {
     constructor() {
         this.negociaciones = new Negociaciones();
         // ! Es MUY IMPORTANTE incluir el '#'
-        this.negociacionesView = new NegociacionesView('#negociaciones-view');
+        this.negociacionesView = new NegociacionesView('#negociaciones-view', true);
         this.mensajeView = new MensajeView('#mensaje-view');
         this.inputFecha = document.querySelector('#fecha');
         this.inputCantidad = document.querySelector('#cantidad');
