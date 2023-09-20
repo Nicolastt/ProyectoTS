@@ -6,7 +6,7 @@ export class NegociacionesView extends View<Negociaciones> {
 
     // Se utiliza .join para eliminar la ',' del array de Negociaciones.
     // Intl.DateTimeFormat().format(e.fecha) permite darle un formato a la fecha
-    crearTemplate(model: Negociaciones): string {
+    protected crearTemplate(model: Negociaciones): string {
         return `
             <table class="table">
                 <thead>
