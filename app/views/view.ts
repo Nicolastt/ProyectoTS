@@ -6,6 +6,7 @@ export abstract class View<T>{
         this.elemento = document.querySelector(selector)
     }
 
+    // Estoy en W11
     crearTemplate(model: T): string {
         throw Error('Es necesario implementar el método crearTemplate en la clase hija');
     }
