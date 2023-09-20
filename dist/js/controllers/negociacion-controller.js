@@ -15,7 +15,7 @@ export class NegociacionController {
         this.negociacionesView.update(this.negociaciones); // Para que muestre la tabla desde el inicio.
     }
     agregar() {
-        const negociacion = this.crearNegociacion();
+        const negociacion = Negociacion.crearNegociacion(this.inputFecha.value, this.inputCantidad.value, this.inputValor.value);
         // La semana comienza con domingo = 0, por lo cual sábado sería 6
         if (!this.esDiaComercial(negociacion.fecha)) {
             this.mensajeView.update('Solo se aceptan días laborables');
@@ -27,14 +27,6 @@ export class NegociacionController {
     }
     esDiaComercial(fecha) {
         return fecha.getDay() > DiasSemana.DOMINGO && fecha.getDay() < DiasSemana.SABADO;
-    }
-    crearNegociacion() {
-        // Reemplaza '-' en todas las apariciones "g" por ';'. Porque date puede recibir una cadena "2000,12,12"
-        const fecha = this.inputFecha.value.replace(/-/g, ',');
-        // Parsear a los valores requeridos
-        const cantidad = parseInt(this.inputCantidad.value);
-        const valor = parseFloat(this.inputValor.value);
-        return new Negociacion(new Date(fecha), cantidad, valor);
     }
     limpiarFormulario() {
         this.inputFecha.value = '';
