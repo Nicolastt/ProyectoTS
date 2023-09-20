@@ -4,9 +4,7 @@
         "target":"ES6",
         "noEmitOnError": true,
         "noImplicitAny": true,
-        "removeComments": true,
-        "strictNullChecks": true,
-        "experimentalDecorators": true
+        "removeComments": true
     },
     "include": [
         "app/**/*"
