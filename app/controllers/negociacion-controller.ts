@@ -11,6 +11,9 @@ export class NegociacionController {
     // ! Es MUY IMPORTANTE incluir el '#'
     private negociacionesView: NegociacionesView = new NegociacionesView('#negociaciones-view');
     private mensajeView: MensajeView = new MensajeView('#mensaje-view')
+    //
+    private readonly SABADO: number = 6;
+    private readonly DOMINGO: number = 0;
 
     constructor() {
         this.inputFecha = document.querySelector('#fecha');
@@ -21,9 +24,19 @@ export class NegociacionController {
 
     public agregar(): void {
         const negociacion = this.crearNegociacion();
+        // La semana comienza con domingo = 0, por lo cual sábado sería 6
+        if (!this.esDiaComercial(negociacion.fecha)) {
+            this.mensajeView.update('Solo se aceptan días laborables');
+            return;
+        }
+
         this.negociaciones.agregar(negociacion);
         this.actualizarVistas();
         this.limpiarFormulario();
+    }
+
+    private esDiaComercial(fecha: Date): boolean {
+        return fecha.getDay() > this.DOMINGO && fecha.getDay() < this.SABADO;
     }
 
     private crearNegociacion(): Negociacion {

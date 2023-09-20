@@ -8,6 +8,9 @@ export class NegociacionController {
         // ! Es MUY IMPORTANTE incluir el '#'
         this.negociacionesView = new NegociacionesView('#negociaciones-view');
         this.mensajeView = new MensajeView('#mensaje-view');
+        //
+        this.SABADO = 6;
+        this.DOMINGO = 0;
         this.inputFecha = document.querySelector('#fecha');
         this.inputCantidad = document.querySelector('#cantidad');
         this.inputValor = document.querySelector('#valor');
@@ -15,9 +18,17 @@ export class NegociacionController {
     }
     agregar() {
         const negociacion = this.crearNegociacion();
+        // La semana comienza con domingo = 0, por lo cual sábado sería 6
+        if (!this.esDiaComercial(negociacion.fecha)) {
+            this.mensajeView.update('Solo se aceptan días laborables');
+            return;
+        }
         this.negociaciones.agregar(negociacion);
         this.actualizarVistas();
         this.limpiarFormulario();
+    }
+    esDiaComercial(fecha) {
+        return fecha.getDay() > this.DOMINGO && fecha.getDay() < this.SABADO;
     }
     crearNegociacion() {
         // Reemplaza '-' en todas las apariciones "g" por ';'. Porque date puede recibir una cadena "2000,12,12"
