@@ -2,15 +2,13 @@ import { Negociacion } from "../models/negociacion.js";
 import { Negociaciones } from "../models/negociaciones.js";
 import { NegociacionesView } from "../views/negociaciones-view.js";
 import { MensajeView } from "../views/mensaje-view.js";
+import { DiasSemana } from "../enums/dias-semana.js";
 export class NegociacionController {
     constructor() {
         this.negociaciones = new Negociaciones();
         // ! Es MUY IMPORTANTE incluir el '#'
         this.negociacionesView = new NegociacionesView('#negociaciones-view');
         this.mensajeView = new MensajeView('#mensaje-view');
-        //
-        this.SABADO = 6;
-        this.DOMINGO = 0;
         this.inputFecha = document.querySelector('#fecha');
         this.inputCantidad = document.querySelector('#cantidad');
         this.inputValor = document.querySelector('#valor');
@@ -28,7 +26,7 @@ export class NegociacionController {
         this.limpiarFormulario();
     }
     esDiaComercial(fecha) {
-        return fecha.getDay() > this.DOMINGO && fecha.getDay() < this.SABADO;
+        return fecha.getDay() > DiasSemana.DOMINGO && fecha.getDay() < DiasSemana.SABADO;
     }
     crearNegociacion() {
         // Reemplaza '-' en todas las apariciones "g" por ';'. Porque date puede recibir una cadena "2000,12,12"
