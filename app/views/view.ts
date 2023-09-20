@@ -1,3 +1,6 @@
+import {medirTiempoEjecucion} from "../decorators/medir-tiempo-ejecucion.js";
+import {inspector} from "../decorators/inspector.js";
+
 export abstract class View<T> {
     // * Usamos un genérico para arreglar los errores de la herencia de métodos.
     // Se puede tener más de un tipo genérico en la clase View<T,K>
@@ -8,9 +11,9 @@ export abstract class View<T> {
     // ! Los parámetros opcionales deben ser siempre los últimos parámetros.
     constructor(selector: string, escapar?: boolean) {
         const elemento = document.querySelector(selector);
-        if (elemento){
+        if (elemento) {
             this.elemento = elemento as HTMLElement;
-        }else {
+        } else {
             throw Error(`No existe ${selector} en el DOM. Por favor validar.`);
         }
 
@@ -21,7 +24,9 @@ export abstract class View<T> {
     // Estoy en W11
     protected abstract crearTemplate(model: T): string;
 
-    update(model: T): void {
+    @inspector()
+    @medirTiempoEjecucion()
+    public update(model: T): void {
         let template = this.crearTemplate(model);
         if (this.escapar) {
             template = template.replace(/<script>[\s\S]*?<\/script>/, '')
