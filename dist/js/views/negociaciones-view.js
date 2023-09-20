@@ -1,8 +1,5 @@
 import { View } from "./view.js";
 export class NegociacionesView extends View {
-    // Siempre hay que especificar qué elemento se va a utilizar en cada clase hija de View
-    // Se utiliza .join para eliminar la ',' del array de Negociaciones.
-    // Intl.DateTimeFormat().format(e.fecha) permite darle un formato a la fecha
     crearTemplate(model) {
         return `
             <table class="table">

@@ -6,17 +6,15 @@ import { DiasSemana } from "../enums/dias-semana.js";
 export class NegociacionController {
     constructor() {
         this.negociaciones = new Negociaciones();
-        // ! Es MUY IMPORTANTE incluir el '#'
         this.negociacionesView = new NegociacionesView('#negociaciones-view', true);
         this.mensajeView = new MensajeView('#mensaje-view');
         this.inputFecha = document.querySelector('#fecha');
         this.inputCantidad = document.querySelector('#cantidad');
         this.inputValor = document.querySelector('#valor');
-        this.negociacionesView.update(this.negociaciones); // Para que muestre la tabla desde el inicio.
+        this.negociacionesView.update(this.negociaciones);
     }
     agregar() {
         const negociacion = Negociacion.crearNegociacion(this.inputFecha.value, this.inputCantidad.value, this.inputValor.value);
-        // La semana comienza con domingo = 0, por lo cual sábado sería 6
         if (!this.esDiaComercial(negociacion.fecha)) {
             this.mensajeView.update('Solo se aceptan días laborables');
             return;
