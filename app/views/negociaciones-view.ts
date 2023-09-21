@@ -1,11 +1,13 @@
 import {Negociaciones} from "../models/negociaciones.js";
 import {View} from "./view.js";
+import {escapar} from "../decorators/escapar.js";
 
 export class NegociacionesView extends View<Negociaciones> {
     // Siempre hay que especificar qué elemento se va a utilizar en cada clase hija de View
 
     // Se utiliza .join para eliminar la ',' del array de Negociaciones.
     // Intl.DateTimeFormat().format(e.fecha) permite darle un formato a la fecha
+    @escapar
     protected crearTemplate(model: Negociaciones): string {
         return `
             <table class="table">

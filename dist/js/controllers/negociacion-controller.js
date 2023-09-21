@@ -14,7 +14,7 @@ import { inspector } from "../decorators/inspector.js";
 export class NegociacionController {
     constructor() {
         this.negociaciones = new Negociaciones();
-        this.negociacionesView = new NegociacionesView('#negociaciones-view', true);
+        this.negociacionesView = new NegociacionesView('#negociaciones-view');
         this.mensajeView = new MensajeView('#mensaje-view');
         this.inputFecha = document.querySelector('#fecha');
         this.inputCantidad = document.querySelector('#cantidad');

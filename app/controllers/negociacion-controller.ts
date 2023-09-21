@@ -12,7 +12,7 @@ export class NegociacionController {
     private inputValor: HTMLInputElement;
     private negociaciones: Negociaciones = new Negociaciones();
     // ! Es MUY IMPORTANTE incluir el '#'
-    private negociacionesView: NegociacionesView = new NegociacionesView('#negociaciones-view', true);
+    private negociacionesView: NegociacionesView = new NegociacionesView('#negociaciones-view');
     private mensajeView: MensajeView = new MensajeView('#mensaje-view')
 
     constructor() {
