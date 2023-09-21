@@ -5,10 +5,14 @@ import {MensajeView} from "../views/mensaje-view.js";
 import {DiasSemana} from "../enums/dias-semana.js";
 import {medirTiempoEjecucion} from "../decorators/medir-tiempo-ejecucion.js";
 import {inspector} from "../decorators/inspector.js";
+import {domInjector} from "../decorators/dom-injector.js";
 
 export class NegociacionController {
+    @domInjector('#fecha')
     private inputFecha: HTMLInputElement;
+    @domInjector('#cantidad')
     private inputCantidad: HTMLInputElement;
+    @domInjector('#valor')
     private inputValor: HTMLInputElement;
     private negociaciones: Negociaciones = new Negociaciones();
     // ! Es MUY IMPORTANTE incluir el '#'
@@ -16,10 +20,6 @@ export class NegociacionController {
     private mensajeView: MensajeView = new MensajeView('#mensaje-view')
 
     constructor() {
-        // as ... : Es como se castea en Ts, se especifica que vamos a recibir un HTMLInputElement.
-        this.inputFecha = document.querySelector('#fecha') as HTMLInputElement;
-        this.inputCantidad = document.querySelector('#cantidad') as HTMLInputElement;
-        this.inputValor = document.querySelector('#valor') as HTMLInputElement;
         this.negociacionesView.update(this.negociaciones); // Para que muestre la tabla desde el inicio.
     }
 
@@ -52,5 +52,26 @@ export class NegociacionController {
     private actualizarVistas(): void {
         this.negociacionesView.update(this.negociaciones);
         this.mensajeView.update('La negociación fue registrada exitosamente');
+    }
+
+    //res => res.json())  Se convierte la cadena json en una cadena de objetos
+    public importarDatos() {
+        fetch('http://localhost:8080/datos')
+            .then(res => res.json())
+            .then((datos: any[]) => {
+                return datos.map((operacion) => {
+                    return new Negociacion(
+                        new Date(),
+                        operacion.veces,
+                        operacion.monto
+                    );
+                });
+            })
+            .then((negociaciones) => {
+                for (let negociacion of negociaciones) {
+                    this.negociaciones.agregar(negociacion);
+                }
+                this.negociacionesView.update(this.negociaciones);
+            })
     }
 }

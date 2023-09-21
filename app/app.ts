@@ -19,3 +19,12 @@ if (form){
     throw Error("No fue posible inicializar la aplicación. Verifique el elemento form.")
 }
 
+const btnImportar = document.querySelector('#btn-importar');
+if (btnImportar){
+    btnImportar.addEventListener('click', event => {
+        negociacionController.importarDatos();
+    })
+}else {
+    throw Error("No se encontró el botón de importar.")
+}
+
