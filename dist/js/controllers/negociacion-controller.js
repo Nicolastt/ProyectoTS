@@ -46,6 +46,6 @@ export class NegociacionController {
     }
 }
 __decorate([
-    inspector(),
+    inspector,
     medirTiempoEjecucion()
 ], NegociacionController.prototype, "agregar", null);
