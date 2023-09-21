@@ -58,7 +58,7 @@ export class NegociacionController {
         this.mensajeView.update('La negociación fue registrada exitosamente');
     }
 
-    //res => res.json())  Se convierte la cadena json en una cadena de objetos
+
     public importarDatos() {
             this.negociacionesService.obtenerNegociacionesAPI()
             .then((negociaciones) => {
