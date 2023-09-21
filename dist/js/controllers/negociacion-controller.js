@@ -12,11 +12,13 @@ import { DiasSemana } from "../enums/dias-semana.js";
 import { medirTiempoEjecucion } from "../decorators/medir-tiempo-ejecucion.js";
 import { inspector } from "../decorators/inspector.js";
 import { domInjector } from "../decorators/dom-injector.js";
+import { NegociacionesService } from "../services/negociacionesService.js";
 export class NegociacionController {
     constructor() {
         this.negociaciones = new Negociaciones();
         this.negociacionesView = new NegociacionesView('#negociaciones-view');
         this.mensajeView = new MensajeView('#mensaje-view');
+        this.negociacionesService = new NegociacionesService();
         this.negociacionesView.update(this.negociaciones);
     }
     agregar() {
@@ -43,13 +45,7 @@ export class NegociacionController {
         this.mensajeView.update('La negociación fue registrada exitosamente');
     }
     importarDatos() {
-        fetch('http://localhost:8080/datos')
-            .then(res => res.json())
-            .then((datos) => {
-            return datos.map((operacion) => {
-                return new Negociacion(new Date(), operacion.veces, operacion.monto);
-            });
-        })
+        this.negociacionesService.obtenerNegociacionesAPI()
             .then((negociaciones) => {
             for (let negociacion of negociaciones) {
                 this.negociaciones.agregar(negociacion);

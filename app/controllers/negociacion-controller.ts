@@ -6,7 +6,7 @@ import {DiasSemana} from "../enums/dias-semana.js";
 import {medirTiempoEjecucion} from "../decorators/medir-tiempo-ejecucion.js";
 import {inspector} from "../decorators/inspector.js";
 import {domInjector} from "../decorators/dom-injector.js";
-import {Operacion} from "../interfaces/operacion.js";
+import {NegociacionesService} from "../services/negociacionesService.js";
 
 export class NegociacionController {
     @domInjector('#fecha')
@@ -20,6 +20,8 @@ export class NegociacionController {
     // ! Es MUY IMPORTANTE incluir el '#'
     private negociacionesView: NegociacionesView = new NegociacionesView('#negociaciones-view');
     private mensajeView: MensajeView = new MensajeView('#mensaje-view')
+
+    private negociacionesService: NegociacionesService = new NegociacionesService();
 
     constructor() {
         this.negociacionesView.update(this.negociaciones); // Para que muestre la tabla desde el inicio.
@@ -58,17 +60,7 @@ export class NegociacionController {
 
     //res => res.json())  Se convierte la cadena json en una cadena de objetos
     public importarDatos() {
-        fetch('http://localhost:8080/datos')
-            .then(res => res.json())
-            .then((datos: Operacion[]) => {
-                return datos.map((operacion) => {
-                    return new Negociacion(
-                        new Date(),
-                        operacion.veces,
-                        operacion.monto
-                    );
-                });
-            })
+            this.negociacionesService.obtenerNegociacionesAPI()
             .then((negociaciones) => {
                 for (let negociacion of negociaciones) {
                     this.negociaciones.agregar(negociacion);
