@@ -6,6 +6,7 @@ import {DiasSemana} from "../enums/dias-semana.js";
 import {medirTiempoEjecucion} from "../decorators/medir-tiempo-ejecucion.js";
 import {inspector} from "../decorators/inspector.js";
 import {domInjector} from "../decorators/dom-injector.js";
+import {Operacion} from "../interfaces/operacion.js";
 
 export class NegociacionController {
     @domInjector('#fecha')
@@ -14,6 +15,7 @@ export class NegociacionController {
     private inputCantidad: HTMLInputElement;
     @domInjector('#valor')
     private inputValor: HTMLInputElement;
+
     private negociaciones: Negociaciones = new Negociaciones();
     // ! Es MUY IMPORTANTE incluir el '#'
     private negociacionesView: NegociacionesView = new NegociacionesView('#negociaciones-view');
@@ -58,7 +60,7 @@ export class NegociacionController {
     public importarDatos() {
         fetch('http://localhost:8080/datos')
             .then(res => res.json())
-            .then((datos: any[]) => {
+            .then((datos: Operacion[]) => {
                 return datos.map((operacion) => {
                     return new Negociacion(
                         new Date(),
