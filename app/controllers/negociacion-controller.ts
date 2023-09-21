@@ -23,7 +23,7 @@ export class NegociacionController {
         this.negociacionesView.update(this.negociaciones); // Para que muestre la tabla desde el inicio.
     }
 
-    @inspector()
+    @inspector
     @medirTiempoEjecucion()
     public agregar(): void {
         const negociacion = Negociacion.crearNegociacion(this.inputFecha.value, this.inputCantidad.value, this.inputValor.value)

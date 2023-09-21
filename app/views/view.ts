@@ -1,16 +1,18 @@
 export abstract class View<T> {
     // * Usamos un genérico para arreglar los errores de la herencia de métodos.
     // Se puede tener más de un tipo genérico en la clase View<T,K>
-    protected elemento: HTMLAnchorElement;
+    protected elemento: HTMLElement;
     protected escapar: boolean = false;
 
     // x?: tipoDeDato me permite poner un parámetro opcional
     // ! Los parámetros opcionales deben ser siempre los últimos parámetros.
     constructor(selector: string, escapar?: boolean) {
-        this.elemento = document.querySelector(selector)
-
-        if (escapar)
-            this.escapar = escapar;
+        const elemento = document.querySelector(selector);
+        if (elemento) {
+            this.elemento = elemento as HTMLElement;
+        } else {
+            throw Error(`No existe ${selector} en el DOM. Por favor validar`);
+        }
     }
 
     // Estoy en W11
