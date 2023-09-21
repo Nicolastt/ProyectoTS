@@ -61,6 +61,13 @@ export class NegociacionController {
 
     public importarDatos() {
             this.negociacionesService.obtenerNegociacionesAPI()
+                .then((negociaciones) => {
+                    return negociaciones.filter((negociacionAPI) => {
+                        return !this.negociaciones
+                            .obtenerLista()
+                            .some((negociacion) => negociacion.esIgual(negociacionAPI))
+                    })
+        })
             .then((negociaciones) => {
                 for (let negociacion of negociaciones) {
                     this.negociaciones.agregar(negociacion);

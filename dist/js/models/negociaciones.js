@@ -8,4 +8,7 @@ export class Negociaciones {
     obtenerLista() {
         return this.negociaciones;
     }
+    esIgual(negociaciones) {
+        return JSON.stringify(this.negociaciones) == JSON.stringify(negociaciones.obtenerLista());
+    }
 }

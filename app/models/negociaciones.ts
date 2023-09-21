@@ -1,6 +1,7 @@
 import {Negociacion} from "./negociacion.js";
+import {Comparable} from "../interfaces/comparable.js";
 
-export class Negociaciones {
+export class Negociaciones implements Comparable<Negociaciones> {
 
     //private negociaciones: Array<Negociacion> = [];
     private negociaciones: Negociacion[] = [];
@@ -21,7 +22,11 @@ export class Negociaciones {
         return this.negociaciones;
     }
     */
-    obtenerLista(): readonly Negociacion[]{
+    obtenerLista(): readonly Negociacion[] {
         return this.negociaciones;
     }
+
+    esIgual(negociaciones: Negociaciones): boolean {
+        return  JSON.stringify(this.negociaciones) == JSON.stringify(negociaciones.obtenerLista());    }
+
 }

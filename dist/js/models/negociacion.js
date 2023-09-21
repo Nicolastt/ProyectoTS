@@ -4,6 +4,12 @@ export class Negociacion {
         this._cantidad = cantidad;
         this._valor = valor;
     }
+    static crearNegociacion(fechaS, cantidadS, valorS) {
+        const fecha = fechaS.replace(/-/g, ',');
+        const cantidad = parseInt(cantidadS);
+        const valor = parseFloat(valorS);
+        return new Negociacion(new Date(fecha), cantidad, valor);
+    }
     get fecha() {
         return this._fecha;
     }
@@ -16,10 +22,17 @@ export class Negociacion {
     get total() {
         return this._cantidad * this._valor;
     }
-    static crearNegociacion(fechaS, cantidadS, valorS) {
-        const fecha = fechaS.replace(/-/g, ',');
-        const cantidad = parseInt(cantidadS);
-        const valor = parseFloat(valorS);
-        return new Negociacion(new Date(fecha), cantidad, valor);
+    toSting() {
+        return `
+        Fecha: ${this.fecha}
+        Cantidad: ${this.cantidad}
+        Valor: ${this.valor} 
+        `;
+    }
+    esIgual(negociacion) {
+        return this.fecha.getDay() == negociacion.fecha.getDay() &&
+            this.fecha.getMonth() == negociacion.fecha.getMonth() &&
+            this.fecha.getFullYear() == negociacion.fecha.getFullYear() &&
+            this.valor == negociacion.valor;
     }
 }
